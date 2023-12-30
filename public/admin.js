@@ -43,6 +43,7 @@ function renderBookList(book) {
   deleteInput.setAttribute("type", "submit");
   deleteInput.setAttribute("value", "Delete");
 
+  // Deletes the book when clicked, warning the user first with a popup (achieved by using the window confirm() method)
   deleteInput.addEventListener("click", async () => {
     if (confirm("Are you sure you want to delete this book?")) {
       let response = await fetch(
@@ -66,6 +67,7 @@ function renderBookList(book) {
   li.append(input, submit, deleteInput);
 }
 
+//Creates a form for the user to add a new book to the list.
 function newBookForm() {
   let div = document.getElementById("book-form-container");
 
@@ -122,6 +124,7 @@ function newBookForm() {
 
   let currentYear = new Date().getFullYear();
 
+  // Adds the new book to the server based on the user input values.
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -144,7 +147,9 @@ function newBookForm() {
 
   });
 
+  //Inserts the h2 and form to the specified div.
   div.append(formTitle, form);
+  //Inserts the form labels, inputs and line breaks to the form.
   form.append(
     titleLabel,
     titleInput,
