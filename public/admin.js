@@ -122,8 +122,9 @@ function newBookForm() {
 
   let currentYear = new Date().getFullYear();
 
-  submitInput.addEventListener("click", async () => {
-    try {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
       let response = await fetch("http://localhost:3001/addBook", {
         method: "POST",
         headers: {
@@ -131,21 +132,16 @@ function newBookForm() {
         },
         body: JSON.stringify({
           title: titleInput.value,
-          year: currentYear,
+          quantity: quantityInput.value,
           description: descInput.value,
-          quantity: quantityLabel.value,
           imageURL: imgInput.value,
+          year: currentYear,
         }),
       });
+   
+      let responseData = await response.json();
+      console.log(responseData);
 
-      if (response.ok) {
-        console.log("Book added successfully!");
-      } else {
-        console.error(`Failed to add book. Status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("An error occurred while making this request:", error);
-    }
   });
 
   div.append(formTitle, form);
